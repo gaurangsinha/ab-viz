@@ -22,6 +22,7 @@ namespace ab_viz {
         private ApacheBench _ApacheBench = null;
         private string[] _Summaries = null;
         private int _RepeatIndex = 0;
+        private bool _IsCanceled = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="frmMain" /> class.
@@ -147,7 +148,9 @@ namespace ab_viz {
         private void btnStart_Click(object sender, EventArgs e) {
             txtSummary.Text = string.Empty;
             _Summaries = new string[(int)numRepeat.Value];
-
+            
+            _IsCanceled = false;
+            
             chkSeries.Items.Clear();
             chartRequests.Series.Clear();
             chartPercentageSummary.Series.Clear();
@@ -213,7 +216,7 @@ namespace ab_viz {
 
                     lblToolStripStatus.Text = string.Format("Started Run {0} ...", _RepeatIndex + 1);
                     pbToolStripProgressBar.Value = 0;
-
+                    btnCancel.Visible = true;
                     if (!_ApacheBench.Start()) {
                         MessageBox.Show("Error starting 'ab.exe'", "Error Starting", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -264,12 +267,13 @@ namespace ab_viz {
                 txtSummary.Text = string.Join(SEPARATOR_LINE, _Summaries);
                 ProcessSummaryData("Run" + numRequests.ToString());
                 _RepeatIndex++;
-                if (_RepeatIndex < numRepeat.Value) {
+                if (_RepeatIndex < numRepeat.Value && !_IsCanceled) {
                     StartBenchmark();
                 }
                 else {
                     ToggleControls();
-                    lblToolStripStatus.Text = "Completed Benchmark";
+                    lblToolStripStatus.Text = (!_IsCanceled) ? "Completed Benchmark" : "Benchmark Cancelled";
+                    btnCancel.Visible = false;
                 }
             }));
         }
@@ -476,6 +480,16 @@ namespace ab_viz {
                     txtSummary.Text += string.Format("{0}{1}{0}{2}", SEPARATOR_LINE, runStr, _Summaries[i]);
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles the ButtonClick event of the btnCancel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        private void btnCancel_ButtonClick(object sender, EventArgs e) {
+            _IsCanceled = true;
+            _ApacheBench.Cancel();
         }
     }
 }

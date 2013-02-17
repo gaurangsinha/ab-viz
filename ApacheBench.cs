@@ -314,6 +314,12 @@ namespace ab_viz {
             }
         }
 
+        public void Cancel() {
+            if (null != _Process && false == _Process.HasExited) {
+                _Process.Kill();
+            }
+        }
+
         /// <summary>
         /// Runs the ApacheBench in sync.
         /// </summary>
