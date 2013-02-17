@@ -27,6 +27,11 @@ namespace ab_viz {
         public static readonly string APACHE_BENCH_FLAG_CONTENT_TYPE = "-T";
         public static readonly string APACHE_BENCH_FLAG_COOKIE = "-C";
         public static readonly string APACHE_BENCH_FLAG_HEADER = "-H";
+        public static readonly string APACHE_BENCH_FLAG_AUTHENTICATE = "-A";
+        public static readonly string APACHE_BENCH_FLAG_PROXY_AUTHENTICATE = "-P";
+        public static readonly string APACHE_BENCH_FLAG_PROXY_SERVER = "-X";
+        public static readonly string APACHE_BENCH_FLAG_KEEP_ALIVE = "-k";
+        public static readonly string APACHE_BENCH_FLAG_USE_HEAD = "-i";
 
         public static readonly string APACHE_BENCH_FLAG_GNUPLOT = "-g";
         public static readonly string DEFAULT_GNUPLOT_FILE = "graph.tsv";

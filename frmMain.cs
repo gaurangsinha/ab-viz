@@ -116,16 +116,30 @@ namespace ab_viz {
                 }
             }
 
-            //-A
+            //-A attribute    Add Basic WWW Authentication, the attributes are a colon separated username and password.
+            if (!string.IsNullOrEmpty(txtAuthenticate.Text)) {
+                AddArgument(arguments, ApacheBench.APACHE_BENCH_FLAG_AUTHENTICATE, txtAuthenticate.Text);
+            }
 
             //-X
+            if (!string.IsNullOrEmpty(txtProxyServer.Text)) {
+                AddArgument(arguments, ApacheBench.APACHE_BENCH_FLAG_PROXY_SERVER, txtProxyServer.Text);
+            }
 
             //-P
+            if (!string.IsNullOrEmpty(txtProxyAuthenticate.Text)) {
+                AddArgument(arguments, ApacheBench.APACHE_BENCH_FLAG_PROXY_AUTHENTICATE, txtProxyAuthenticate.Text);
+            }
 
             //-k
+            if (chkKeepAlive.Checked) {
+                AddArgument(arguments, ApacheBench.APACHE_BENCH_FLAG_KEEP_ALIVE, null);
+            }
 
             //-i
-
+            if (chkUseHEAD.Checked) {
+                AddArgument(arguments, ApacheBench.APACHE_BENCH_FLAG_USE_HEAD, null);
+            }
 
             return arguments;
         }
