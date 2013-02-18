@@ -6,7 +6,8 @@ Apache Bench Visualizer [ab-viz]
 [ab-viz]() lets you quickly benchmark and view detailed graphs.
 
 ### Prerequiste
-[Microsoft .NET Framework 4.5](http://www.microsoft.com/en-in/download/details.aspx?id=30653).
+* [Microsoft .NET Framework 4.5](http://www.microsoft.com/en-in/download/details.aspx?id=30653).
+* Apache Bench (ab.exe), you'll find it under `.\apache\bin\ab.exe`
 
 ### Download 
 To download executable [click here](https://github.com/gaurangsinha/ab-viz/raw/master/binaries/ab-viz.exe).
