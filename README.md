@@ -7,7 +7,9 @@ Apache Bench Visualizer [ab-viz]
 
 ### Prerequiste
 * [Microsoft .NET Framework 4.5](http://www.microsoft.com/en-in/download/details.aspx?id=30653).
-* Apache Bench (ab.exe), you'll find it under `.\apache\bin\ab.exe`
+* Apache Bench (ab.exe)
+  * You'll find it in Apache's installation folder `.\apache\bin\ab.exe` *-OR-*
+  * [Click Here](https://github.com/gaurangsinha/ab-viz/raw/master/binaries/ab.exe) to download ab.exe
 
 ### Download 
 To download executable [click here](https://github.com/gaurangsinha/ab-viz/raw/master/binaries/ab-viz.exe).
