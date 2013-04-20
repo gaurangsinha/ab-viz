@@ -24,15 +24,18 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.cboAddress = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -85,6 +88,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbToolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.btnCancel = new System.Windows.Forms.ToolStripSplitButton();
             this.lblApacheBenchDocLink = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtSummary = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -94,11 +98,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chartPercentageSummary = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.chartRequests = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartRequestDistribution = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chkSeries = new System.Windows.Forms.CheckedListBox();
             this.label29 = new System.Windows.Forms.Label();
             this.chkSeriesTypes = new System.Windows.Forms.CheckedListBox();
-            this.btnCancel = new System.Windows.Forms.ToolStripSplitButton();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chartRequests = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.numRepeat)).BeginInit();
             this.grpOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowSize)).BeginInit();
@@ -111,6 +116,8 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartPercentageSummary)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartRequestDistribution)).BeginInit();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartRequests)).BeginInit();
             this.SuspendLayout();
             // 
@@ -684,6 +691,17 @@
             this.pbToolStripProgressBar.Size = new System.Drawing.Size(100, 16);
             this.pbToolStripProgressBar.Visible = false;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(59, 20);
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnCancel.Visible = false;
+            this.btnCancel.ButtonClick += new System.EventHandler(this.btnCancel_ButtonClick);
+            // 
             // lblApacheBenchDocLink
             // 
             this.lblApacheBenchDocLink.IsLink = true;
@@ -720,6 +738,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(428, 12);
             this.tabControl1.Name = "tabControl1";
@@ -754,15 +773,62 @@
             this.chartPercentageSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea1.AxisX.Maximum = 100D;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.MinorGrid.Enabled = true;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisX.MinorTickMark.Enabled = true;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisX.Title = "Request Percentage (%)";
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea1.AxisY.MinorGrid.Enabled = true;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisY.MinorTickMark.Enabled = true;
+            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisY.Title = "Response (ms)";
+            chartArea1.Name = "ChartArea1";
+            this.chartPercentageSummary.ChartAreas.Add(chartArea1);
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend1.Name = "Legend1";
+            legend1.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Wide;
+            this.chartPercentageSummary.Legends.Add(legend1);
+            this.chartPercentageSummary.Location = new System.Drawing.Point(6, 6);
+            this.chartPercentageSummary.Name = "chartPercentageSummary";
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Response";
+            this.chartPercentageSummary.Series.Add(series1);
+            this.chartPercentageSummary.Size = new System.Drawing.Size(324, 460);
+            this.chartPercentageSummary.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chartRequestDistribution);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(336, 462);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Request Distribution";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // chartRequestDistribution
+            // 
+            this.chartRequestDistribution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisX.Maximum = 100D;
-            chartArea3.AxisX.Minimum = 0D;
             chartArea3.AxisX.MinorGrid.Enabled = true;
             chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
             chartArea3.AxisX.MinorTickMark.Enabled = true;
             chartArea3.AxisX.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
-            chartArea3.AxisX.Title = "Request Percentage (%)";
+            chartArea3.AxisX.Title = "Requests";
             chartArea3.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
             chartArea3.AxisY.MinorGrid.Enabled = true;
@@ -771,83 +837,36 @@
             chartArea3.AxisY.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
             chartArea3.AxisY.Title = "Response (ms)";
             chartArea3.Name = "ChartArea1";
-            this.chartPercentageSummary.ChartAreas.Add(chartArea3);
+            this.chartRequestDistribution.ChartAreas.Add(chartArea3);
             legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             legend3.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
             legend3.Name = "Legend1";
             legend3.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Wide;
-            this.chartPercentageSummary.Legends.Add(legend3);
-            this.chartPercentageSummary.Location = new System.Drawing.Point(6, 6);
-            this.chartPercentageSummary.Name = "chartPercentageSummary";
-            series6.BorderWidth = 2;
+            this.chartRequestDistribution.Legends.Add(legend3);
+            this.chartRequestDistribution.Location = new System.Drawing.Point(-4, 0);
+            this.chartRequestDistribution.Name = "chartRequestDistribution";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "ctime";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "dtime";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "ttime";
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Legend = "Legend1";
-            series6.Name = "Response";
-            this.chartPercentageSummary.Series.Add(series6);
-            this.chartPercentageSummary.Size = new System.Drawing.Size(324, 460);
-            this.chartPercentageSummary.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.chartRequests);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(336, 462);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Requests";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // chartRequests
-            // 
-            this.chartRequests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisX.MinorGrid.Enabled = true;
-            chartArea4.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea4.AxisX.MinorTickMark.Enabled = true;
-            chartArea4.AxisX.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
-            chartArea4.AxisX.Title = "Requests";
-            chartArea4.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisY.MinorGrid.Enabled = true;
-            chartArea4.AxisY.MinorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea4.AxisY.MinorTickMark.Enabled = true;
-            chartArea4.AxisY.MinorTickMark.LineColor = System.Drawing.Color.LightGray;
-            chartArea4.AxisY.Title = "Response (ms)";
-            chartArea4.Name = "ChartArea1";
-            this.chartRequests.ChartAreas.Add(chartArea4);
-            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend4.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
-            legend4.Name = "Legend1";
-            legend4.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Wide;
-            this.chartRequests.Legends.Add(legend4);
-            this.chartRequests.Location = new System.Drawing.Point(-4, 0);
-            this.chartRequests.Name = "chartRequests";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Legend = "Legend1";
-            series7.Name = "ctime";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.Name = "dtime";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Legend = "Legend1";
-            series9.Name = "ttime";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Legend = "Legend1";
-            series10.Name = "wait";
-            this.chartRequests.Series.Add(series7);
-            this.chartRequests.Series.Add(series8);
-            this.chartRequests.Series.Add(series9);
-            this.chartRequests.Series.Add(series10);
-            this.chartRequests.Size = new System.Drawing.Size(344, 466);
-            this.chartRequests.TabIndex = 0;
+            series6.Name = "wait";
+            this.chartRequestDistribution.Series.Add(series3);
+            this.chartRequestDistribution.Series.Add(series4);
+            this.chartRequestDistribution.Series.Add(series5);
+            this.chartRequestDistribution.Series.Add(series6);
+            this.chartRequestDistribution.Size = new System.Drawing.Size(344, 466);
+            this.chartRequestDistribution.TabIndex = 0;
             // 
             // chkSeries
             // 
@@ -886,16 +905,43 @@
             this.chkSeriesTypes.Size = new System.Drawing.Size(75, 34);
             this.chkSeriesTypes.TabIndex = 14;
             // 
-            // btnCancel
+            // tabPage4
             // 
-            this.btnCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(59, 20);
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnCancel.Visible = false;
-            this.btnCancel.ButtonClick += new System.EventHandler(this.btnCancel_ButtonClick);
+            this.tabPage4.Controls.Add(this.chartRequests);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(336, 462);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Requests";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // chartRequests
+            // 
+            this.chartRequests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea2.AxisX.MinorGrid.Enabled = true;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea2.AxisX.MinorTickMark.Enabled = true;
+            chartArea2.AxisY.MinorGrid.Enabled = true;
+            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea2.AxisY.MinorTickMark.Enabled = true;
+            chartArea2.Name = "ChartArea1";
+            this.chartRequests.ChartAreas.Add(chartArea2);
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend2.Name = "Legend1";
+            this.chartRequests.Legends.Add(legend2);
+            this.chartRequests.Location = new System.Drawing.Point(0, 3);
+            this.chartRequests.Name = "chartRequests";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartRequests.Series.Add(series2);
+            this.chartRequests.Size = new System.Drawing.Size(340, 459);
+            this.chartRequests.TabIndex = 0;
+            this.chartRequests.Text = "chart1";
             // 
             // frmMain
             // 
@@ -927,6 +973,8 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartPercentageSummary)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartRequestDistribution)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartRequests)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -996,11 +1044,13 @@
         private System.Windows.Forms.CheckBox chkKeepAlive;
         private System.Windows.Forms.CheckBox chkUseHEAD;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartRequests;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartRequestDistribution;
         private System.Windows.Forms.CheckedListBox chkSeries;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckedListBox chkSeriesTypes;
         private System.Windows.Forms.ToolStripSplitButton btnCancel;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartRequests;
     }
 }
 

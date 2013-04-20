@@ -167,6 +167,7 @@ namespace ab_viz {
             
             chkSeries.Items.Clear();
             chartRequests.Series.Clear();
+            chartRequestDistribution.Series.Clear();
             chartPercentageSummary.Series.Clear();
             for (int i = 0; i < numRepeat.Value; i++) {
                 string run = "Run" + (i + 1).ToString();
@@ -178,27 +179,34 @@ namespace ab_viz {
                 });
 
                 chartRequests.Series.Add(new Series() {
+                    Name = run,
+                    ChartType = SeriesChartType.Point,
+                    BorderWidth = 1,
+                    Legend = "Legend1"
+                });
+
+                chartRequestDistribution.Series.Add(new Series() {
                     Name = run + "_ctime",
                     ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
                     BorderWidth = 2,
                     Legend = "Legend1"
                 });
 
-                chartRequests.Series.Add(new Series() {
+                chartRequestDistribution.Series.Add(new Series() {
                     Name = run + "_dtime",
                     ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
                     BorderWidth = 2,
                     Legend = "Legend1"
                 });
 
-                chartRequests.Series.Add(new Series() {
+                chartRequestDistribution.Series.Add(new Series() {
                     Name = run + "_ttime",
                     ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
                     BorderWidth = 2,
                     Legend = "Legend1"
                 });
 
-                chartRequests.Series.Add(new Series() {
+                chartRequestDistribution.Series.Add(new Series() {
                     Name = run + "_wait",
                     ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
                     BorderWidth = 2,
@@ -311,18 +319,21 @@ namespace ab_viz {
                 int req = 1;
                 using (var sr = new StreamReader(ApacheBench.DEFAULT_GNUPLOT_FILE)) {
                     sr.ReadLine();  //Skip header line
+                    var run = "Run" + (_RepeatIndex + 1).ToString();
                     while (!sr.EndOfStream) {
                         var line = sr.ReadLine();
                         var parts = line.Split('\t');
-                        var run = "Run" + (_RepeatIndex + 1).ToString();
 
-                        chartRequests.Series[run + "_ctime"].Points.AddXY(req, parts[2]);
-                        chartRequests.Series[run + "_dtime"].Points.AddXY(req, parts[3]);
-                        chartRequests.Series[run + "_ttime"].Points.AddXY(req, parts[4]);
-                        chartRequests.Series[run + "_wait"].Points.AddXY(req, parts[5]);
+                        chartRequests.Series[run].Points.AddXY(long.Parse(parts[1].Trim()), long.Parse(parts[4].Trim()));
+
+                        chartRequestDistribution.Series[run + "_ctime"].Points.AddXY(req, parts[2]);
+                        chartRequestDistribution.Series[run + "_dtime"].Points.AddXY(req, parts[3]);
+                        chartRequestDistribution.Series[run + "_ttime"].Points.AddXY(req, parts[4]);
+                        chartRequestDistribution.Series[run + "_wait"].Points.AddXY(req, parts[5]);
 
                         req++;
                     }
+                    chartRequests.Series[run].Sort(PointSortOrder.Ascending, "X");
                 }
             }
         }
@@ -433,7 +444,7 @@ namespace ab_viz {
             for (int i = 0; i < chkSeries.Items.Count; i++) {
                 var run = "Run" + (i + 1).ToString();
                 chartPercentageSummary.Series[run].Enabled = enabled[i];
-                foreach (var ser in chartRequests.Series.Where(s => s.Name.Contains(run))) {
+                foreach (var ser in chartRequestDistribution.Series.Where(s => s.Name.Contains(run))) {
                     ser.Enabled = enabled[i];
                 }
                 if(enabled[i]) {
@@ -487,7 +498,7 @@ namespace ab_viz {
             for (int i = 0; i < chkSeries.Items.Count; i++) {
                 string runStr = "Run" + (i + 1).ToString();
                 chartPercentageSummary.Series[i].Enabled = series[i];
-                foreach (var ser in chartRequests.Series.Where(s => s.Name.Contains(runStr))) {
+                foreach (var ser in chartRequestDistribution.Series.Where(s => s.Name.Contains(runStr))) {
                     ser.Enabled = series[i] & types.Contains(ser.Name.Replace(runStr + "_", string.Empty));
                 }
                 if (series[i]) {
